@@ -81,17 +81,25 @@ function script.update(dt)
     slidingMult = math.abs(sliding) * 10
 
     if player.speedKmh > requiredSpeed and slidingMult > 1 then
-        if not comboCancelled then
-            driftPoints = slidingMult * 0.05
-            totalScore = totalScore + (driftPoints * comboMeter)
-            comboProgress = comboProgress + (player.speedKmh * 0.00005)
-            comboMeter = math.floor(comboProgress)
+       if comboCancelled then
+           -- Start a new scoring run after the collision
+           comboCancelled = false
+           comboMeter = 1
+           comboProgress = 1
+           highestCombo = 1
+           dangerouslySlowTimer = 0
+           addMessage("New drift started!", 0)
+       end
 
-            if comboMeter > highestCombo then
-                highestCombo = comboMeter
-            end
-        end
-    end
+       driftPoints = slidingMult * 0.05
+       totalScore = totalScore + (driftPoints * comboMeter)
+       comboProgress = comboProgress + (player.speedKmh * 0.00005)
+       comboMeter = math.floor(comboProgress)
+
+       if comboMeter > highestCombo then
+          highestCombo = comboMeter
+       end
+   end
 
     if player.speedKmh < requiredSpeed and slidingMult < 1 then
         if dangerouslySlowTimer > 2 then
