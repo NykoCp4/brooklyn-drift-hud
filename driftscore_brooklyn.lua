@@ -34,6 +34,8 @@ local topScore = 0
 local topScorePlayer = ""
 local sliding = 0
 local slidingMult = 0
+local collisionWasActive = false
+local collisionDepthThreshold = 0.05
 
 function script.update(dt)
     if timePassed == 0 then
@@ -46,6 +48,23 @@ function script.update(dt)
     end
 
     timePassed = timePassed + dt
+           -- Reset combo on collision with walls/objects or other cars.
+    local collisionDepth = player.collisionDepth or 0
+    local collidedWith = player.collidedWith
+    local collidedWithCar = collidedWith ~= nil and collidedWith ~= 0
+    local collisionActive =
+        collisionDepth > collisionDepthThreshold or collidedWithCar
+
+    if collisionActive and not collisionWasActive then
+        comboMeter = 1
+        comboProgress = 1
+        dangerouslySlowTimer = 0
+        addMessage("💥 Collision! Combo reset", -1)
+    end
+
+
+    collisionWasActive = collisionActive
+
 
     local sim = ac.getSimState()
     while sim.carsCount > #carsState do
@@ -257,3 +276,4 @@ function script.drawUI()
 
     ui.endTransparentWindow()
 end
+
