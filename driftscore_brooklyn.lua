@@ -236,13 +236,13 @@ function script.drawUI()
         end
     end
 
-    ui.beginTransparentWindow("driftScore", vec2(1700, 100), vec2(1900, 400))
+    ui.beginTransparentWindow("driftScore", vec2(1250, 100), vec2(1650, 550))
     ui.beginOutline()
 
     ui.pushStyleVar(ui.StyleVar.Alpha, 1 - speedWarning)
     ui.popFont()
     ui.popStyleVar()
-    ui.pushFont(ui.Font.Title)
+    ui.pushFont(ui.Font.Huge)
     ui.offsetCursorY(20)
     ui.text(math.floor(totalScore) .. " pts")
     ui.sameLine(0, 20)
