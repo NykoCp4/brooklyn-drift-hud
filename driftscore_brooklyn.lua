@@ -35,6 +35,7 @@ local topScorePlayer = ""
 local sliding = 0
 local slidingMult = 0
 local collisionWasActive = false
+local comboCancelled = false
 local collisionDepthThreshold = 0.05
 
 function script.update(dt)
@@ -56,14 +57,10 @@ function script.update(dt)
         collisionDepth > collisionDepthThreshold or collidedWithCar
 
     if collisionActive and not collisionWasActive then
-        comboMeter = 1
-        comboProgress = 1
-        highestCombo = 1
-        driftPoints = 0
+        comboCancelled = true
         dangerouslySlowTimer = 0
-        addMessage("💥 Collision! Combo reset", -1)
+        addMessage("💥 Collision! Score locked", -1)
     end
-
 
     collisionWasActive = collisionActive
 
