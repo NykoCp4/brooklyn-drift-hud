@@ -81,15 +81,17 @@ function script.update(dt)
     slidingMult = math.abs(sliding) * 10
 
     if player.speedKmh > requiredSpeed and slidingMult > 1 then
-       if comboCancelled then
-           -- Start a new scoring run after the collision
-           comboCancelled = false
-           comboMeter = 1
-           comboProgress = 1
-           highestCombo = 1
-           dangerouslySlowTimer = 0
-           addMessage("New drift started!", 0)
-       end
+    if comboCancelled then
+       -- Reset score and combo after collision
+       totalScore = 0
+       driftPoints = 0
+       comboCancelled = false
+       comboMeter = 1
+       comboProgress = 1
+       highestCombo = 1
+       dangerouslySlowTimer = 0
+       addMessage("Score reset! New drift started!", 0)
+    end
 
        driftPoints = slidingMult * 0.05
        totalScore = totalScore + (driftPoints * comboMeter)
