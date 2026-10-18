@@ -236,7 +236,7 @@ function script.drawUI()
         end
     end
 
-    ui.beginTransparentWindow("driftScore", vec2(1250, 100), vec2(1650, 550))
+    ui.beginTransparentWindow("driftScore", vec2(1100, 100), vec2(1750, 550))
     ui.beginOutline()
 
     ui.pushStyleVar(ui.StyleVar.Alpha, 1 - speedWarning)
