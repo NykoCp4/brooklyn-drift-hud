@@ -84,12 +84,15 @@ function script.update(dt)
     slidingMult = math.abs(sliding) * 10
 
     if player.speedKmh > requiredSpeed and slidingMult > 1 then
-        driftPoints = slidingMult * 0.05
-        totalScore = totalScore + (driftPoints * comboMeter)
-        comboProgress = comboProgress + (player.speedKmh * 0.00005)
-        comboMeter = math.floor(comboProgress)
-        if comboMeter > highestCombo then
-            highestCombo = comboMeter
+        if not comboCancelled then
+            driftPoints = slidingMult * 0.05
+            totalScore = totalScore + (driftPoints * comboMeter)
+            comboProgress = comboProgress + (player.speedKmh * 0.00005)
+            comboMeter = math.floor(comboProgress)
+
+            if comboMeter > highestCombo then
+                highestCombo = comboMeter
+            end
         end
     end
 
@@ -116,7 +119,7 @@ function script.update(dt)
             comboMeter = 1
             comboProgress = 1
             highestCombo = 1
-        else
+            comboCancelled = false
             if dangerouslySlowTimer == 0 then
                 addMessage("Get Going!", -1)
             end
