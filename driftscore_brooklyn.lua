@@ -58,6 +58,8 @@ function script.update(dt)
     if collisionActive and not collisionWasActive then
         comboMeter = 1
         comboProgress = 1
+        highestCombo = 1
+        driftPoints = 0
         dangerouslySlowTimer = 0
         addMessage("💥 Collision! Combo reset", -1)
     end
